@@ -1,0 +1,63 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Pic</th>
+      <th>First</th>
+      <th>Last</th>
+      <th>Mail</th>
+      <th>Course</th>
+      <th>Qualification</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr
+      *ngFor="let s of students"
+      [ngClass]="s.qualification < 5 ? 'table-danger' : ''"
+    >
+      <td scope="row">
+        <img
+          *ngIf="s.pic.length > 0; else noPic"
+          src="{{ s.pic }}"
+          alt="{{ s.name }}"
+          style="
+            height: 30px;
+            width: 30px;
+            object-fit: cover;
+            border-radius: 50%;
+          "
+        />
+        <ng-template #noPic>
+          <img
+            src="../../../assets/imgs/no-img.png"
+            alt="{{ s.name }}"
+            style="
+              height: 30px;
+              width: 30px;
+              object-fit: cover;
+              border-radius: 50%;
+            "
+          />
+        </ng-template>
+      </td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.surname }}</td>
+      <td>{{ s.email.length == 0 ? "no-email" : s.email }}</td>
+      <td>{{ s.course | uppercase }}</td>
+      <td>{{ s.qualification }}</td>
+      <td>{{ s.qualification < 5 ? "(disapproved 🫣)" : "(approved 😸)" }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn btn-light me-1" (click)="showOnlyApproved()">
+  Show only approveds
+</button>
+
+<button class="btn btn-light me-1" (click)="showOnlyDisapproved()">
+  Show only disapproveds
+</button>
+
+<button class="btn btn-light" (click)="showAll()">
+    Show all students
+</button>
